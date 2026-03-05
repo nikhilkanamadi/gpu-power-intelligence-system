@@ -585,7 +585,7 @@ export default function App() {
                 position: "sticky", top: 0, zIndex: 100
             }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-                    <img src="/gpu-logo.png" alt="GPU" style={{ width: 32, height: 32, borderRadius: 6 }} />
+                    <img src={`${import.meta.env.BASE_URL}gpu-logo.png`} alt="GPU" style={{ width: 32, height: 32, borderRadius: 6 }} />
                     <span style={{ fontSize: 17, fontWeight: 800, letterSpacing: 0.5, color: "#fff" }}>GPU</span>
                     <div style={{ width: 1, height: 20, background: "rgba(0,104,181,0.2)" }} />
                     <span style={{ fontSize: 13, color: "var(--text-muted)", fontWeight: 500, letterSpacing: 1 }}>Power Intelligence System</span>
