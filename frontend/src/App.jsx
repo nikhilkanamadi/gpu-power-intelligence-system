@@ -194,7 +194,7 @@ function OverviewTab({ selectedGPU, setSelectedGPU, hoursPerDay, setHoursPerDay,
     return (
         <div className="animate-in">
             {/* Controls Row */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, marginBottom: 32 }}>
+            <div className="grid-3" style={{ marginBottom: 32 }}>
                 <div className="intel-card">
                     <div className="section-label">Select GPU</div>
                     <select value={selectedGPU} onChange={e => setSelectedGPU(e.target.value)} style={{
@@ -231,7 +231,7 @@ function OverviewTab({ selectedGPU, setSelectedGPU, hoursPerDay, setHoursPerDay,
             </div>
 
             {/* KPI Cards */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16, marginBottom: 32 }}>
+            <div className="grid-4" style={{ marginBottom: 32 }}>
                 <MetricCard label="Idle Power Draw" value={gpu.idle} unit="W" accent="var(--danger)"
                     sub={`vs Nvidia ${nvidiaGPU.idle}W idle`} delta={Math.round((gpu.idle / nvidiaGPU.idle - 1) * 100)} />
                 <MetricCard label="Annual Cost Gap" value={`$${Math.abs(annualGap).toFixed(2)}`} unit=""
@@ -276,7 +276,7 @@ function RealtimeTab({ aiMode }) {
 
     return (
         <div className="animate-in">
-            <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 28 }}>
+            <div className="tab-header">
                 <div>
                     <h1 style={{ fontSize: 28, fontWeight: 800, color: "#fff", letterSpacing: -0.5, marginBottom: 6 }}>Live AI Power Intelligence</h1>
                     <div style={{ fontSize: 13, color: "var(--text-muted)", display: "flex", alignItems: "center", gap: 12, fontWeight: 500 }}>
@@ -287,7 +287,7 @@ function RealtimeTab({ aiMode }) {
                         }
                     </div>
                 </div>
-                <div style={{ display: "flex", gap: 20, marginTop: 4 }}>
+                <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
                     {[{ label: "Actual Power", color: "var(--danger)" }, { label: "AI Optimal", color: "var(--success)" }].map(l => (
                         <div key={l.label} style={{ display: "flex", alignItems: "center", gap: 8 }}>
                             <div style={{ width: 20, height: 3, background: l.color, borderRadius: 2 }} />
@@ -322,7 +322,7 @@ function RealtimeTab({ aiMode }) {
 
             {/* Live Metric Cards */}
             {latest && (
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 12, marginBottom: 16 }}>
+                <div className="grid-5" style={{ marginBottom: 16 }}>
                     <div className="intel-card" style={{ borderTop: "2px solid var(--intel-cyan)", textAlign: "center" }}>
                         <PhaseTag phase={latest.predicted_phase} />
                         <div style={{ marginTop: 12, fontSize: 28, fontWeight: 800, color: "#fff" }}>{latest.actual_power}W</div>
@@ -357,12 +357,12 @@ function RealtimeTab({ aiMode }) {
 
             {/* AI Summary */}
             {aiMode && stats.points > 0 && (
-                <div className="savings-bar" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div className="savings-bar savings-summary">
                     <div>
                         <div style={{ fontSize: 13, color: "var(--success)", fontWeight: 700, letterSpacing: 1 }}>AI POWER SAVINGS — LIVE SESSION</div>
                         <div style={{ fontSize: 12, color: "var(--text-dim)", marginTop: 4, fontWeight: 500 }}>Cumulative savings from predictive DVFS over {stats.points} data points</div>
                     </div>
-                    <div style={{ display: "flex", gap: 36 }}>
+                    <div className="savings-metrics">
                         {[{ label: "Avg Savings", value: `${stats.avgSavings.toFixed(1)}W` }, { label: "Total Saved", value: `${stats.totalSaved.toFixed(0)}W·t` }, { label: "Perf Impact", value: "<1%" }].map(m => (
                             <div key={m.label} style={{ textAlign: "center" }}>
                                 <div style={{ fontSize: 26, fontWeight: 800, color: "var(--success)" }}>{m.value}</div>
@@ -415,7 +415,7 @@ function PipelineTab() {
             </div>
 
             {/* Pipeline Stages */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12, marginBottom: 24 }}>
+            <div className="grid-pipeline" style={{ marginBottom: 24 }}>
                 {stages.map((st, i) => (
                     <div key={st.title} className="pipeline-stage" style={{ borderTop: `2px solid ${st.color}` }}>
                         <div style={{ fontSize: 12, fontWeight: 700, color: st.color, letterSpacing: 1.5, marginBottom: 4 }}>{st.title}</div>
@@ -432,7 +432,7 @@ function PipelineTab() {
             </div>
 
             {/* Correlation Insights */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+            <div className="grid-2">
                 <div className="intel-card" style={{ borderLeft: "3px solid var(--intel-cyan)" }}>
                     <div className="section-label">Correlation A: Memory BW ↔ Power (R² {'>'} 0.89)</div>
                     <div style={{ fontSize: 13, color: "var(--text-light)", lineHeight: 1.7 }}>
@@ -476,7 +476,7 @@ function RoadmapTab() {
                     </LineChart>
                 </ResponsiveContainer>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
+            <div className="grid-4">
                 {[
                     { gen: "Alchemist", year: "2022", status: "SHIPPED", perf: 44, idle: 38, color: "#7b8fa3", note: "Driver struggles, poor idle mgmt" },
                     { gen: "Battlemage", year: "2024", status: "CURRENT", perf: 62, idle: 22, color: "#00C7FD", note: "Major improvement, gap remains" },
@@ -508,7 +508,7 @@ function CompetitiveTab() {
         <div className="animate-in">
             <h1 style={{ fontSize: 28, fontWeight: 800, color: "#fff", letterSpacing: -0.5, marginBottom: 6 }}>Competitive Intelligence Matrix</h1>
             <div style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 28, fontWeight: 500 }}>Intel vs Nvidia vs AMD — 6-axis capability comparison</div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+            <div className="grid-2">
                 <div className="intel-card">
                     <div className="section-label">Capability Radar</div>
                     <ResponsiveContainer width="100%" height={320}>
@@ -575,22 +575,14 @@ export default function App() {
             <div className="hero-glow" />
 
             {/* ─── HEADER ─── */}
-            <header style={{
-                borderBottom: "1px solid rgba(0, 104, 181, 0.1)",
-                padding: "0 48px",
-                display: "flex", alignItems: "center", justifyContent: "space-between",
-                height: 64,
-                background: "rgba(0, 8, 20, 0.85)",
-                backdropFilter: "blur(20px)",
-                position: "sticky", top: 0, zIndex: 100
-            }}>
+            <header className="app-header">
                 <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
                     <img src={`${import.meta.env.BASE_URL}gpu-logo.png`} alt="GPU" style={{ width: 32, height: 32, borderRadius: 6 }} />
                     <span style={{ fontSize: 17, fontWeight: 800, letterSpacing: 0.5, color: "#fff" }}>GPU</span>
                     <div style={{ width: 1, height: 20, background: "rgba(0,104,181,0.2)" }} />
                     <span style={{ fontSize: 13, color: "var(--text-muted)", fontWeight: 500, letterSpacing: 1 }}>Power Intelligence System</span>
                 </div>
-                <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                         <div className={`status-dot ${aiMode ? "active" : "inactive"}`} />
                         <span style={{ fontSize: 12, color: aiMode ? "var(--success)" : "var(--text-dim)", fontWeight: 600 }}>
@@ -605,7 +597,7 @@ export default function App() {
             </header>
 
             {/* ─── TABS ─── */}
-            <nav style={{ borderBottom: "1px solid rgba(0, 104, 181, 0.08)", padding: "0 48px", display: "flex" }}>
+            <nav className="app-nav">
                 {tabs.map(tab => (
                     <button key={tab.id} onClick={() => setActiveTab(tab.id)}
                         className={`intel-tab ${activeTab === tab.id ? "active" : ""}`}>
@@ -615,7 +607,7 @@ export default function App() {
             </nav>
 
             {/* ─── CONTENT ─── */}
-            <main style={{ padding: "36px 48px", maxWidth: "var(--content-max-width)", margin: "0 auto", position: "relative", zIndex: 1 }}>
+            <main className="app-main">
                 {activeTab === "overview" && <OverviewTab {...{ selectedGPU, setSelectedGPU, hoursPerDay, setHoursPerDay, energyCost, setEnergyCost }} />}
                 {activeTab === "realtime" && <RealtimeTab aiMode={aiMode} />}
                 {activeTab === "pipeline" && <PipelineTab />}
@@ -624,7 +616,7 @@ export default function App() {
             </main>
 
             {/* ─── FOOTER ─── */}
-            <footer style={{ borderTop: "1px solid rgba(0, 104, 181, 0.06)", padding: "20px 48px", display: "flex", justifyContent: "space-between" }}>
+            <footer className="app-footer">
                 <span style={{ fontSize: 11, color: "var(--text-dim)", fontWeight: 500 }}>
                     Data: Tom's Hardware · Phoronix · Intel VTune · Public Benchmarks · arXiv Research
                 </span>
