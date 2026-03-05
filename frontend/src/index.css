@@ -1,0 +1,425 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    /* Intel Brand Colors */
+    --intel-blue: #0068B5;
+    --intel-blue-bright: #0071C5;
+    --intel-blue-dark: #003C71;
+    --intel-blue-action: #0046C8;
+    --intel-cyan: #00C7FD;
+    --intel-cyan-glow: rgba(0, 199, 253, 0.15);
+
+    /* Dark Theme (Hero/Dashboard) */
+    --bg-hero: #000814;
+    --bg-hero-secondary: #001229;
+    --bg-card-dark: rgba(0, 18, 41, 0.7);
+    --bg-card-dark-hover: rgba(0, 30, 62, 0.8);
+    --bg-card-dark-border: rgba(0, 104, 181, 0.15);
+    --bg-card-dark-border-hover: rgba(0, 104, 181, 0.3);
+
+    /* Light sections */
+    --bg-light: #f3f3f3;
+    --bg-white: #ffffff;
+
+    /* Text */
+    --text-white: #ffffff;
+    --text-light: #c8d6e5;
+    --text-muted: #7b8fa3;
+    --text-dim: #4a5e73;
+    --text-dark: #0f1f30;
+
+    /* Semantic */
+    --success: #00c781;
+    --danger: #ff4d6a;
+    --warning: #ffb020;
+    --purple: #8b5cf6;
+
+    /* Typography */
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+
+    /* Spacing */
+    --section-padding: 48px;
+    --card-radius: 8px;
+    --pill-radius: 24px;
+    --content-max-width: 1400px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--bg-hero);
+    color: var(--text-white);
+    font-family: var(--font-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.5;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-hero);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--intel-blue-dark);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--intel-blue);
+}
+
+/* ─── RANGE SLIDER ─── */
+input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    background: rgba(0, 104, 181, 0.2);
+    outline: none;
+    border-radius: 2px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--intel-blue-bright);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid var(--bg-hero);
+    box-shadow: 0 0 0 2px var(--intel-blue-bright), 0 0 12px rgba(0, 113, 197, 0.4);
+    transition: all 0.2s;
+}
+
+input[type=range]::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 3px var(--intel-cyan), 0 0 20px rgba(0, 199, 253, 0.5);
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes glow-pulse {
+
+    0%,
+    100% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes shimmer-line {
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+@keyframes float-gentle {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-4px);
+    }
+}
+
+.animate-in {
+    animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ─── CARD SYSTEM ─── */
+.intel-card {
+    background: var(--bg-card-dark);
+    border: 1px solid var(--bg-card-dark-border);
+    border-radius: var(--card-radius);
+    padding: 24px;
+    backdrop-filter: blur(12px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.intel-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0, 199, 253, 0.3), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.intel-card:hover {
+    background: var(--bg-card-dark-hover);
+    border-color: var(--bg-card-dark-border-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 104, 181, 0.1);
+}
+
+.intel-card:hover::before {
+    opacity: 1;
+}
+
+/* ─── PILL BUTTONS (Intel-style) ─── */
+.intel-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 24px;
+    border-radius: var(--pill-radius);
+    font-family: var(--font-primary);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    border: none;
+    outline: none;
+}
+
+.intel-btn-primary {
+    background: var(--intel-blue-action);
+    color: var(--text-white);
+}
+
+.intel-btn-primary:hover {
+    background: var(--intel-blue-bright);
+    box-shadow: 0 4px 16px rgba(0, 70, 200, 0.4);
+    transform: translateY(-1px);
+}
+
+.intel-btn-outline {
+    background: transparent;
+    border: 1.5px solid var(--intel-blue);
+    color: var(--intel-cyan);
+}
+
+.intel-btn-outline:hover {
+    background: rgba(0, 104, 181, 0.1);
+    border-color: var(--intel-cyan);
+    box-shadow: 0 0 16px rgba(0, 199, 253, 0.15);
+}
+
+.intel-btn-ghost {
+    background: rgba(0, 104, 181, 0.08);
+    border: 1px solid rgba(0, 104, 181, 0.2);
+    color: var(--intel-cyan);
+}
+
+.intel-btn-ghost:hover {
+    background: rgba(0, 104, 181, 0.15);
+    border-color: rgba(0, 199, 253, 0.3);
+}
+
+/* ─── TAB SYSTEM ─── */
+.intel-tab {
+    background: transparent;
+    border: none;
+    padding: 14px 20px;
+    font-family: var(--font-primary);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    cursor: pointer;
+    position: relative;
+    transition: all 0.25s;
+}
+
+.intel-tab::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+    right: 20px;
+    height: 2px;
+    background: var(--intel-cyan);
+    border-radius: 1px 1px 0 0;
+    transform: scaleX(0);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.intel-tab:hover {
+    color: var(--text-light);
+}
+
+.intel-tab.active {
+    color: var(--intel-cyan);
+}
+
+.intel-tab.active::after {
+    transform: scaleX(1);
+}
+
+/* ─── PHASE / STATUS TAGS ─── */
+.intel-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: var(--pill-radius);
+    padding: 4px 12px;
+    font-family: var(--font-primary);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* ─── LIVE BADGE ─── */
+.live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 77, 106, 0.1);
+    border: 1px solid rgba(255, 77, 106, 0.25);
+    border-radius: var(--pill-radius);
+    padding: 4px 14px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--danger);
+    letter-spacing: 1px;
+}
+
+.live-badge .dot {
+    width: 6px;
+    height: 6px;
+    background: var(--danger);
+    border-radius: 50%;
+    animation: glow-pulse 1.5s infinite;
+}
+
+/* ─── PIPELINE STAGE ─── */
+.pipeline-stage {
+    background: var(--bg-card-dark);
+    border: 1px solid var(--bg-card-dark-border);
+    border-radius: var(--card-radius);
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+}
+
+.pipeline-stage::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--intel-cyan), transparent);
+    animation: shimmer-line 3s infinite linear;
+    background-size: 200% 100%;
+}
+
+/* ─── SAVINGS HIGHLIGHT BAR ─── */
+.savings-bar {
+    background: linear-gradient(135deg, rgba(0, 199, 129, 0.06), rgba(0, 199, 253, 0.04));
+    border: 1px solid rgba(0, 199, 129, 0.15);
+    border-radius: var(--card-radius);
+    padding: 20px 28px;
+    transition: all 0.3s;
+}
+
+.savings-bar:hover {
+    background: linear-gradient(135deg, rgba(0, 199, 129, 0.1), rgba(0, 199, 253, 0.06));
+    border-color: rgba(0, 199, 129, 0.25);
+}
+
+/* ─── STATUS DOT ─── */
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+
+.status-dot.active {
+    background: var(--success);
+    box-shadow: 0 0 8px var(--success), 0 0 2px var(--success);
+}
+
+.status-dot.inactive {
+    background: var(--text-dim);
+}
+
+/* ─── SECTION LABEL ─── */
+.section-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+/* ─── HERO GLOW EFFECTS ─── */
+.hero-glow {
+    position: fixed;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(0, 104, 181, 0.12), transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ─── METRIC VALUE ─── */
+.metric-value {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--text-white);
+    line-height: 1;
+    letter-spacing: -0.5px;
+}
+
+.metric-unit {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-dim);
+    margin-left: 4px;
+}
+
+/* ─── PROGRESS BAR ─── */
+.progress-track {
+    height: 4px;
+    background: rgba(0, 104, 181, 0.12);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
